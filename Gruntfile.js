@@ -92,7 +92,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('dev', [
 		'clean:tmp',
-		'tslint:test',
+		'ts:test',
 		'mochaTest:all'
 	]);
 
@@ -100,5 +100,6 @@ module.exports = function (grunt) {
 		'build',
 		'ts_clean:dist'
 	]);
+
 	grunt.registerTask('default', ['build']);
 };

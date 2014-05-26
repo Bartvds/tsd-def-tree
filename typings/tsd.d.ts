@@ -6,4 +6,7 @@
 /// <reference path="node/node.d.ts" />
 /// <reference path="semver/semver.d.ts" />
 /// <reference path="minimatch/minimatch.d.ts" />
-/// <reference path="tsd-repo-fs/tsd-repo-fs.d.ts" />
+
+/// <reference path="tsd/tsd-repo.d.ts" />
+/// <reference path="tsd/tsd-repo-fs.d.ts" />
+/// <reference path="tsd/tsd-def-tree.d.ts" />

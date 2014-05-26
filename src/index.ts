@@ -6,7 +6,9 @@ import assert = require('assert');
 
 import through2 = require('through2');
 import semver = require('semver');
-import Repo = require('./repo');
+
+import Repo = require('tsd-repo');
+import Tree = require('tsd-def-tree');
 
 var defExtExp = /\.d\.ts$/;
 var semverExp = /(.+?)(?:-v?)(\d+(?:\.\d+)*(?:-[a-z]+)?)$/i;
@@ -23,17 +25,17 @@ interface Def extends Blob {
 	semver?: string;
 }
 
-class Tree {
+class DefTree implements Tree {
 
-	private source: Repo;
+	private _repo: Repo;
 
 	constructor(repo: Repo) {
 		assert(!!repo, 'pass a repo instance');
-		this.source = repo;
+		this._repo = repo;
 	}
 
 	getDefs(): NodeJS.ReadableStream {
-		return this.source.getTree().pipe(through2.obj(function (blob: Blob, enc: string, callback: () => void) {
+		return this._repo.getTree().pipe(through2.obj(function (blob: Blob, enc: string, callback: () => void) {
 			if (defExtExp.test(blob.path)) {
 				var base = path.basename(blob.path).replace(defExtExp, '');
 				var parts = blob.path.split(/\/|\\/g);
@@ -65,11 +67,19 @@ class Tree {
 						def.semver = semMatch[2];
 					}
 				}
+
+				// seriously cool
+				Object.freeze(def);
+
 				this.push(def);
 			}
 			callback();
 		}));
 	}
+
+	get repo(): Repo {
+		return this._repo;
+	}
 }
 
-export = Tree;
+export = DefTree;

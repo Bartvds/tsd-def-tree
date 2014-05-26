@@ -8,7 +8,7 @@ import path = require('path');
 import findup = require('findup-sync');
 import streamTo = require('stream-to-array');
 
-import Tree = require('../src/index');
+import DefTree = require('../src/index');
 import FSRepo = require('tsd-repo-fs');
 
 var baseDir = path.join(path.dirname(findup('package.json')), 'test', 'fixtures', 'dir');
@@ -17,13 +17,13 @@ describe('basics', () => {
 
 	it('errors on bad repo', () => {
 		assert.throw(() => {
-			var tree = new Tree(null);
+			var tree = new DefTree(null);
 		}, /^pass a repo instance/);
 	});
 
 	it('streams tree', (done) => {
 		var repo = new FSRepo(baseDir);
-		var tree = new Tree(repo);
+		var tree = new DefTree(repo);
 		var out = tree.getDefs();
 
 		streamTo(out, (err: any, arr: any[]) => {
@@ -48,6 +48,11 @@ describe('basics', () => {
 					project: 'foo',
 					name: 'foo',
 					semver: '0.1.23' },
+				{ path: 'foo/foo-0.2.23.d.ts',
+					size: 12,
+					project: 'foo',
+					name: 'foo',
+					semver: '0.2.23' },
 				{ path: 'foo/foo.d.ts', size: 12, project: 'foo', name: 'foo' },
 				{ path: 'hoge/hoge-ultra.fx.d.ts', size: 8, project: 'hoge', name: 'hoge-ultra.fx' }
 			];
