@@ -8,23 +8,16 @@ import path = require('path');
 import findup = require('findup-sync');
 import streamTo = require('stream-to-array');
 
-import DefTree = require('../src/index');
+import getDefs = require('../src/index');
 import FSRepo = require('tsd-repo-fs');
 
 var baseDir = path.join(path.dirname(findup('package.json')), 'test', 'fixtures', 'dir');
 
 describe('basics', () => {
 
-	it('errors on bad repo', () => {
-		assert.throw(() => {
-			var tree = new DefTree(null);
-		}, /^pass a repo instance/);
-	});
-
 	it('streams tree', (done) => {
 		var repo = new FSRepo(baseDir);
-		var tree = new DefTree(repo);
-		var out = tree.getDefs();
+		var out = repo.getTree().pipe(getDefs());
 
 		streamTo(out, (err: any, arr: any[]) => {
 			if (err) {

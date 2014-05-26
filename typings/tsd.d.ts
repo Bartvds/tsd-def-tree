@@ -9,4 +9,3 @@
 
 /// <reference path="tsd/tsd-repo.d.ts" />
 /// <reference path="tsd/tsd-repo-fs.d.ts" />
-/// <reference path="tsd/tsd-def-tree.d.ts" />

@@ -1,5 +1,5 @@
 {
-  "name": "tsd-tree-parse",
+  "name": "tsd-def-tree",
   "version": "0.0.1",
   "description": "TSD module parses tree info to definition objects",
   "keywords": [
