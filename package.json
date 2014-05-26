@@ -1,7 +1,7 @@
 {
   "name": "tsd-tree-parse",
   "version": "0.0.1",
-  "description": "TSD plain filesystem repo",
+  "description": "TSD module parses tree info to definition objects",
   "keywords": [
     "typescript",
     "tsd"
